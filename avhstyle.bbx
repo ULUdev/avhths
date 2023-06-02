@@ -1,0 +1,35 @@
+%% the AvH bibliography style file for biblatex
+\ProvidesFile{avhstyle.bbx}[2023/04/2023 biblatex style for the AvH]
+
+\RequireBibliographyStyle{numeric}
+
+\DeclareFieldFormat{title}{\textit{#1}}
+\DeclareFieldFormat{subtitle}{\textit{#1}}
+\DeclareFieldFormat{volume}{Bd. #1}
+\DeclareListFormat{location}{
+    #1
+    \ifthenelse{\value{listcount}<\value{\liststop}}{\addcomma\space}{}
+}
+\DeclareNameFormat{author}{
+    \textsc{\namepartfamily}\ifdefvoid{\namepartgiven}{}{\addcomma\space\namepartgiven}
+    \ifthenelse{\value{listcount}<\value{\liststop}}{\addsemicolon\space}{}
+}
+
+\DeclareBibliographyDriver{book}{
+    \printnames{author}
+    \setunit*{\addcolon\space}
+    \printfield{title}
+    \setunit*{\subtitlepunct}
+    \printfield{subtitle}
+    \setunit*{\addperiod\space}
+    \printfield{volume}
+    \setunit*{\addperiod\space}
+    \printfield{edition}
+    \setunit*{\addperiod\space}
+    \printlist{location}
+    \setunit*{\addcolon\space}
+    \printlist{publisher}
+    \setunit*{\addcomma\space}
+    \printfield{year}
+    \finentry
+}
